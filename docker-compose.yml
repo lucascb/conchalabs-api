@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: dev.dockerfile
-    command: pytest --asyncio-mode=auto
+    command: pytest --asyncio-mode=auto --cov=conchalabs
     depends_on:
       migration:
         condition: service_completed_successfully
