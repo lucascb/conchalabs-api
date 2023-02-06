@@ -21,8 +21,8 @@ class PostgresUserAudioRepository(UserAudioRepository):
 
         try:
             await self._session.commit()
-        except IntegrityError:
-            raise UserAudioConflictError()
+        except IntegrityError as error:
+            raise UserAudioConflictError() from error
 
         await self._session.refresh(user_audio)
 

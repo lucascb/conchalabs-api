@@ -55,11 +55,11 @@ async def get_user_by_id(
 ):
     try:
         return await repository.get_by_id(user_id)
-    except UserNotFoundError:
+    except UserNotFoundError as error:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
             detail="User not found",
-        )
+        ) from error
 
 
 @router.patch("/{user_id}", response_model=User)

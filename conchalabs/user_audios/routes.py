@@ -42,11 +42,11 @@ async def create_user_audio(
 
     try:
         return await user_audio_repository.save(audio)
-    except UserAudioConflictError:
+    except UserAudioConflictError as error:
         raise HTTPException(
             status_code=HTTPStatus.CONFLICT,
             detail="Audio conflicts for user",
-        )
+        ) from error
 
 
 @router.get(
@@ -76,11 +76,11 @@ async def get_user_audio_by_id(
 ):
     try:
         return await user_audio_repository.get_by_id(user_id, audio_id)
-    except UserAudioNotFoundError:
+    except UserAudioNotFoundError as error:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
             detail="Audio not found",
-        )
+        ) from error
 
 
 @router.patch("/{audio_id}", response_model=UserAudio)
@@ -97,8 +97,8 @@ async def update_user_audio_by_id(
 
     try:
         return await user_audio_repository.save(user_audio)
-    except UserAudioConflictError:
+    except UserAudioConflictError as error:
         raise HTTPException(
             status_code=HTTPStatus.CONFLICT,
             detail="Audio conflicts for user",
-        )
+        ) from error
