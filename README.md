@@ -119,7 +119,7 @@ The application can be automatically deployed to GCP using Terraform.
 
 ### Steps
 
-First, fill the file `environments/gcp/terraform.tfvars` with the specific values of your GCP project. Example:
+First, create the file `environments/gcp/terraform.tfvars` and fill with the specific values of your GCP project. Example:
 
 ```terraform
 project           = "conchalabs"
