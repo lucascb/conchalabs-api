@@ -5,7 +5,18 @@ and a Postgres database.
 
 ## Running locally
 
-### Pre-requisites
+### Running using Docker
+
+You can start both the API and the database using the docker compose file:
+
+```bash
+docker-compose up api
+```
+
+The compose file will also run the migration job to create the tables on the database. 
+The API docs will be available at http://localhost:8000/docs.
+
+### Running on the local environment
 
 Ensure you have Python 3.11 installed on your machine. If not, you can install it using [Pyenv](https://github.com/pyenv/pyenv).
 
@@ -19,8 +30,6 @@ If you don't have a Postgres database running on your machine, you can start the
 ```bash
 docker-compose up -d database
 ```
-
-### Instructions
 
 Create and activate a virtual environment:
 
@@ -57,14 +66,6 @@ make run-dev
 
 The API documentation will be available at http://localhost:8000/docs.
 
-### Running using Docker
-
-You can start both the API and the database using the docker compose file:
-
-```bash
-docker-compose up
-```
-
 ## Quality checks
 
 To run the linters to check and fix code standardization:
@@ -73,13 +74,21 @@ To run the linters to check and fix code standardization:
 make lint
 ```
 
-To run the tests:
+You can run the tests using the docker compose file:
+
+```bash
+docker-compose up test
+```
+
+It will automatically start the database, run the migrations and run the test suite.
+
+You can also run them locally: 
 
 ```bash
 make test
 ```
 
-And to generate the project test coverage report:
+And generate the project test coverage report:
 
 ```bash
 make coverage-html
@@ -113,7 +122,7 @@ The application can be automatically deployed to GCP using Terraform.
 ### Pre-requisites
 
 * Install terraform CLI and initialize it (`terraform init`)
-* Install gcloud CLI and log-in on your account
+* Install gcloud CLI and log-in in your account
 * Create a service account on GCP with the following roles: Editor, Cloud Run Admin, Compute network admin and download the credentials file. 
 * Configure Google Cloud Registry on your docker CLI (`gcloud auth configure-docker`)
 
@@ -148,7 +157,7 @@ make deploy-gcp
 
 When it finishes, the API URL created will be displayed to you. 
 
-> **Note:** Some GCP APIs accesses might still be requested by the CLI as the resources are created.
+> **Note**: Some GCP APIs accesses might still be requested by the CLI as the resources are created.
 > Just enable the API on the project and run the command again.
 
 Last but not least, run the migration job to create the tables on the database:
@@ -163,3 +172,4 @@ make migrate-gcp
 * Add some nice logs
 * Create a CI/CD pipeline to check the code and automate the application deploy on GCP from the repository
 * Create a bucket on GCP to store the infrastructure state
+* As the application grow, it would be interesting to create a new layer for the business logic

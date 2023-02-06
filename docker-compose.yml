@@ -8,7 +8,28 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - database
+      migration:
+        condition: service_completed_successfully
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:admin@database:5432/conchalabs_db
+  test:
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+    command: pytest --asyncio-mode=auto
+    depends_on:
+      migration:
+        condition: service_completed_successfully
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:admin@database:5432/conchalabs_db
+  migration:
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+    command: alembic upgrade head
+    depends_on:
+      database:
+        condition: service_started
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:admin@database:5432/conchalabs_db
   database:

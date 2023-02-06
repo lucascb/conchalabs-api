@@ -1,4 +1,5 @@
 *.dockerfile
+docker-compose.yml
 README.md
 *.pyc
 *.pyo
