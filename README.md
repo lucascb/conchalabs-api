@@ -1,7 +1,14 @@
 # Conchalabs-API
 
-Conchalabs take-home project. This application consists of a Python API built using FastAPI, SqlModel and SqlAlchemy 
-and a Postgres database.
+Conchalabs take-home project. This application consists of a REST API built using Python and a Postgres database.
+
+## Stack
+
+* FastAPI
+* SqlModel
+* asyncpg
+* alembic
+* Terraform
 
 ## Running locally
 
