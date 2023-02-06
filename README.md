@@ -170,6 +170,7 @@ make migrate-gcp
 
 * Find out why coverage is not hitting all the lines
 * Add some nice logs
+* Add authentication/authorization using protocols like OAuth/OpenID to secure the APIs
 * Create a CI/CD pipeline to check the code and automate the application deploy on GCP from the repository
 * Create a bucket on GCP to store the infrastructure state
 * As the application grow, it would be interesting to create a new layer for the business logic
