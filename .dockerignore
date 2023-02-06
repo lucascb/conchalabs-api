@@ -1,0 +1,16 @@
+*.dockerfile
+README.md
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.pytest_cache
+htmlcov
+.env
+.DS_Store
+.env.example
+.git
+.gitignore
+.mypy_cache
+.coverage
+environments
