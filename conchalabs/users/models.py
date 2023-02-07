@@ -1,12 +1,12 @@
-from sqlmodel import SQLModel
+from sqlmodel import Field, SQLModel
 
 from conchalabs.commons.mixins import TimestampedModelMixin, UUIDModelMixin
 
 
 class UserBase(SQLModel):
-    name: str
-    email: str
-    address: str
+    name: str = Field(index=True)
+    email: str = Field(index=True)
+    address: str = Field(index=True)
     image: str
 
 
