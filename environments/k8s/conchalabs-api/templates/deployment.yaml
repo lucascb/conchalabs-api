@@ -33,11 +33,7 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          env:
-            - name: "DATABASE_URL"
-              value: "postgresql+asyncpg://conchalabs:conchalabs@conchalabs-api-postgresql.default.svc:5432/conchalabs_db"
-            - name: "PORT"
-              value: "80"
+          env: {{- include "conchalabs-api.envVars" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /health

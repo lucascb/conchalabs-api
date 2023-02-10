@@ -45,3 +45,6 @@ build-migration-gcp:
 
 migrate-gcp:
 	gcloud beta run jobs execute migration-job --wait
+
+deploy-k8s:
+	helm install conchalabs-api environments/k8s/conchalabs-api

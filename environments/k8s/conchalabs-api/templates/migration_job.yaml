@@ -11,9 +11,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.migration.image.repository }}:{{ .Values.migration.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: "DATABASE_URL"
-              value: "postgresql+asyncpg://conchalabs:conchalabs@conchalabs-api-postgresql.default.svc:5432/conchalabs_db"
+          env: {{- include "conchalabs-api.envVars" . | nindent 12 }}
       restartPolicy: Never
       {{- with .Values.nodeSelector }}
       nodeSelector:

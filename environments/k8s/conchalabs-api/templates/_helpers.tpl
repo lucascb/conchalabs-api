@@ -49,3 +49,10 @@ Selector labels
 app.kubernetes.io/name: {{ include "conchalabs-api.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{- define "conchalabs-api.envVars"}}
+{{- range $key, $val := .Values.envVars }}
+- name: {{ $key | quote }}
+  value: {{ $val | quote }}
+{{- end}}
+{{- end }}

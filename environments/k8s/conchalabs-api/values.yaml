@@ -19,15 +19,9 @@ podSecurityContext: {}
 
 securityContext: {}
 
-#envVars:
-#  - DATABASE_URL: "postgresql+asyncpg://admin:conchalabs@conchalabs-api-postgresql.default.svc:5432/conchalabs_db"
-#  - PORT: "80"
-
-#envVars:
-#  - name: "DATABASE_URL"
-#    value: "postgresql+asyncpg://postgres:admin@conchalabs-api-postgresql.default.svc:5432/conchalabs_db"
-#  - name: "PORT"
-#    value: "80"
+envVars:
+  DATABASE_URL: "postgresql+asyncpg://conchalabs:conchalabs@conchalabs-api-postgresql.default.svc:5432/conchalabs_db"
+  PORT: "80"
 
 service:
   type: ClusterIP
@@ -62,6 +56,7 @@ migration:
     tag: "latest"
 
 postgresql:
+  enabled: true
   auth:
     postgresPassword: "admin"
     username: "conchalabs"
