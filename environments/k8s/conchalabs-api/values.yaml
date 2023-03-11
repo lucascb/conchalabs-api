@@ -1,0 +1,64 @@
+# Default values for conchalabs-api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: gcr.io/conchalabs/conchalabs-api
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+envVars:
+  DATABASE_URL: "postgresql+asyncpg://conchalabs:conchalabs@conchalabs-api-postgresql.default.svc:5432/conchalabs_db"
+  PORT: "80"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: {
+      nginx.ingress.kubernetes.io/rewrite-target: /
+  }
+  hosts:
+    - host: localhost
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+migration:
+  enabled: true
+  image:
+    repository: gcr.io/conchalabs/conchalabs-migration
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "admin"
+    username: "conchalabs"
+    password: "conchalabs"
+    database: "conchalabs_db"
